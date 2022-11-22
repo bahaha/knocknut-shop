@@ -3,7 +3,6 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>knocknut</artifactId>
-
   <dependencies>
     <dependency>
       <artifactId>jaxb-runtime</artifactId>
@@ -85,6 +84,17 @@
       </dependency>
 
       <dependency>
+        <artifactId>flyway-core</artifactId>
+        <groupId>org.flywaydb</groupId>
+        <version>${flyway.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>flyway-mysql</artifactId>
+        <groupId>org.flywaydb</groupId>
+        <version>${flyway.version}</version>
+      </dependency>
+
+      <dependency>
         <artifactId>spock-bom</artifactId>
         <groupId>org.spockframework</groupId>
         <scope>import</scope>
@@ -94,18 +104,22 @@
     </dependencies>
   </dependencyManagement>
 
-
   <groupId>dev.claycheng</groupId>
+
+
   <modelVersion>4.0.0</modelVersion>
+  <modules>
+    <module>knocknut-members</module>
+  </modules>
 
   <packaging>pom</packaging>
   <properties>
     <commons-pool2.version>2.4.3</commons-pool2.version>
     <dynamic-datasource.version>3.3.2</dynamic-datasource.version>
+    <flyway.version>9.8.1</flyway.version>
     <guava.version>31.1-jre</guava.version>
     <java.version>11</java.version>
     <jjwt.version>0.9.0</jjwt.version>
-
     <lombok.version>1.18.24</lombok.version>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
