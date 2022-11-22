@@ -11,8 +11,8 @@ services:
       - knocknut-data:/var/lib/mysql
       - ./sql-initialization:/docker-entrypoint-initdb.d
     command: [
-      '--character-set-server=utf8mb3',
-      '--collation-server=utf8mb3_general_ci'
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_general_ci'
     ]
     environment:
       MYSQL_ROOT_PASSWORD: knocknut
