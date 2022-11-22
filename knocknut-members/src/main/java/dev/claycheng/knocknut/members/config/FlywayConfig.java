@@ -32,7 +32,7 @@ public class FlywayConfig {
                   .baselineOnMigrate(true)
                   .cleanOnValidationError(true)
                   .validateOnMigrate(true)
-                  .cleanDisabled(false)
+                  .cleanDisabled(true)
                   .failOnMissingLocations(false)
                   .load();
           flyway.migrate();
