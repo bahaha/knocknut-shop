@@ -95,6 +95,12 @@
       </dependency>
 
       <dependency>
+        <artifactId>knocknut-commons</artifactId>
+        <groupId>dev.claycheng</groupId>
+        <version>1.0.0</version>
+      </dependency>
+
+      <dependency>
         <artifactId>spock-bom</artifactId>
         <groupId>org.spockframework</groupId>
         <scope>import</scope>
@@ -111,6 +117,7 @@
   <modules>
     <module>knocknut-members</module>
     <module>knocknut-authcenter</module>
+    <module>knocknut-commons</module>
   </modules>
 
   <packaging>pom</packaging>
