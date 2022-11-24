@@ -1,0 +1,7 @@
+spring.flyway:
+  enabled: false
+
+logging:
+  level:
+    org.apache.http: debug
+    org.springframework.security: debug
