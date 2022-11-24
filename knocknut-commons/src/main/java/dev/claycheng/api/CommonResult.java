@@ -1,12 +1,17 @@
 package dev.claycheng.api;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class CommonResult<T> {
-  private final int code;
-  private final String message;
-  private final T data;
+  private int code;
+  private String message;
+  private T data;
 
   public static <T> CommonResult<T> success(T data) {
     return new CommonResult<>(
@@ -22,10 +27,7 @@ public class CommonResult<T> {
         CommonApiResult.ACCEPTED.getCode(), CommonApiResult.ACCEPTED.getMessage(), null);
   }
 
-  public static <T> CommonResult<T> notFound() {
-    return new CommonResult<>(
-        CommonApiResult.DATA_NOT_FOUND.getCode(),
-        CommonApiResult.DATA_NOT_FOUND.getMessage(),
-        null);
+  public static <T> CommonResult<T> notFound(String message) {
+    return new CommonResult<>(CommonApiResult.DATA_NOT_FOUND.getCode(), message, null);
   }
 }

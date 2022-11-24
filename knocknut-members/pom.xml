@@ -39,12 +39,23 @@
       <artifactId>spring-boot-starter</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
+
     <dependency>
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
+
+    <dependency>
+      <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+      <groupId>com.alibaba.cloud</groupId>
+    </dependency>
+
     <dependency>
       <artifactId>knocknut-commons</artifactId>
+      <groupId>dev.claycheng</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>knocknut-database-migration</artifactId>
       <groupId>dev.claycheng</groupId>
     </dependency>
     <dependency>
@@ -72,14 +83,6 @@
     <dependency>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
       <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>flyway-core</artifactId>
-      <groupId>org.flywaydb</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>flyway-mysql</artifactId>
-      <groupId>org.flywaydb</groupId>
     </dependency>
     <dependency>
       <artifactId>springfox-swagger2</artifactId>

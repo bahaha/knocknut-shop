@@ -1,5 +1,5 @@
 spring:
-  application.name: knocknut-member
+  application.name: auth-center
   profiles.active: dev
 
 knocknut:

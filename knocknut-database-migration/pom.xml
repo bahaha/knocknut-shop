@@ -2,19 +2,27 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>knocknut-commons</artifactId>
+  <artifactId>knocknut-database-migration</artifactId>
   <dependencies>
     <dependency>
-      <artifactId>spring-web</artifactId>
-      <groupId>org.springframework</groupId>
+      <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+      <groupId>com.baomidou</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>flyway-core</artifactId>
+      <groupId>org.flywaydb</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>flyway-mysql</artifactId>
+      <groupId>org.flywaydb</groupId>
     </dependency>
   </dependencies>
+
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <artifactId>knocknut</artifactId>
     <groupId>dev.claycheng</groupId>
-    <relativePath>../pom.xml</relativePath>
     <version>1.0.0</version>
   </parent>
 

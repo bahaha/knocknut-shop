@@ -1,6 +1,6 @@
 spring.flyway:
   enabled: false
-server.port: 55688
+server.port: 5566
 
 spring.cloud:
   nacos:
