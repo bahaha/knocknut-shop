@@ -1,6 +1,5 @@
 spring.flyway:
   enabled: false
-server.port: 5566
 
 spring.datasource:
   dynamic:
