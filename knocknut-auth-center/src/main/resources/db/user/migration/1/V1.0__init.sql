@@ -6,7 +6,7 @@ CREATE TABLE `oauth_client_details`
     `resource_ids`            VARCHAR(256),
     `scope`                   VARCHAR(256) COMMENT '授權請求的範圍',
     `authorized_grant_types`  VARCHAR(256) COMMENT '授權的類型種類; authorization_code: 授權碼; password: 密碼模式; refresh_token: 允許取得刷新token',
-    `web_server_redirect_url` VARCHAR(256) COMMENT '授權完成後的目標頁面',
+    `web_server_redirect_uri` VARCHAR(256) COMMENT '授權完成後的目標頁面',
     `authorities`             VARCHAR(256),
     `access_token_validity`   int(0),
     `refresh_token_validity`  int(0),

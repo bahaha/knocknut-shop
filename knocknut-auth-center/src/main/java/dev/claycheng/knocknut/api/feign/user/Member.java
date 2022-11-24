@@ -1,11 +1,11 @@
-package dev.claycheng.knocknut.domain;
+package dev.claycheng.knocknut.api.feign.user;
 
 import dev.claycheng.api.enums.MemberStatus;
 import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-public class User {
+public class Member {
   private Long id;
   private Long memberLevelId;
   private String username;
