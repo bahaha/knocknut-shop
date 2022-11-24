@@ -1,7 +1,7 @@
 spring.flyway:
   enabled: false
-
-logging:
-  level:
-    org.apache.http: debug
-    org.springframework.security: debug
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration

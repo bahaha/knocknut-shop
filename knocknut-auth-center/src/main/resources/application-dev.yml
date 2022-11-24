@@ -2,11 +2,6 @@ spring.flyway:
   enabled: false
 server.port: 5566
 
-spring.cloud:
-  nacos:
-    discovery:
-      server-addr: 127.0.0.1:8848
-
 spring.datasource:
   dynamic:
     primary: user

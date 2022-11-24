@@ -23,6 +23,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.web.util.UriComponentsBuilder
 import spock.lang.Specification
 
+import javax.sql.DataSource
 import java.time.Duration
 
 @TestConfiguration
@@ -37,6 +38,9 @@ class OAuth2Spec extends Specification {
     TestRestTemplate testRestTemplate
 
     BaseClientDetails integrationClient
+
+    @SpringBean
+    DataSource dataSource = Mock()
 
     @SpringBean
     PasswordEncoder plainTextEncoder = NoOpPasswordEncoder.instance
