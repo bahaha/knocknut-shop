@@ -5,6 +5,10 @@ import dev.claycheng.api.CommonResult
 import dev.claycheng.api.enums.MemberStatus
 import dev.claycheng.knocknut.api.feign.user.Member
 import dev.claycheng.knocknut.api.feign.user.MemberFeignApi
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Jws
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.security.Keys
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,7 +20,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.password.NoOpPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer
 import org.springframework.security.oauth2.provider.ClientDetailsService
 import org.springframework.security.oauth2.provider.client.BaseClientDetails
 import org.springframework.test.context.ActiveProfiles
@@ -25,21 +28,26 @@ import org.springframework.web.util.UriComponentsBuilder
 import spock.lang.Specification
 
 import javax.sql.DataSource
+import java.nio.charset.StandardCharsets
 import java.time.Duration
 
-@TestPropertySource(properties = "knocknut.auth.jwt.enabled=false")
+@TestPropertySource(properties = "knocknut.auth.jwt.enabled=true")
+@TestPropertySource(properties = "knocknut.auth.jwt.algo=hashing")
+@TestPropertySource(properties = "knocknut.auth.jwt.secret=clay@knocknut_VSVn5YJXx3jwWCpVHRtXgZnQ997n")
 @TestConfiguration
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class OAuth2Spec extends Specification {
+class JwtTokenOAuth2Spec extends Specification {
 
 
-    @Autowired
-    ClientDetailsServiceConfigurer client
     @Autowired
     TestRestTemplate testRestTemplate
 
     BaseClientDetails integrationClient
+
+    def jwtParser = Jwts.parserBuilder()
+        .setSigningKey(Keys.hmacShaKeyFor("clay@knocknut_VSVn5YJXx3jwWCpVHRtXgZnQ997n".getBytes(StandardCharsets.UTF_8)))
+        .build()
 
     @SpringBean
     DataSource dataSource = Mock()
@@ -63,7 +71,8 @@ class OAuth2Spec extends Specification {
         loadClientByClientId('integration-client') >> { _ -> integrationClient }
     }
 
-    def "should issue token if request is from the trusted client"() {
+
+    def "issue JWS with secret hashing"() {
         given:
         integrationClient = trustClient([
             clientId  : "integration-client", clientSecret: "#dev#clay",
@@ -77,47 +86,16 @@ class OAuth2Spec extends Specification {
 
         then:
         response.statusCode == HttpStatus.OK
-        with(response.body) {
-            token_type == 'bearer'
-            (!access_token.blank)
-            (!refresh_token.blank)
-            scope == 'read write'
+        AuthToken authToken = response.body
+        String jwtToken = authToken.access_token
+        Jws<Claims> claims = jwtParser.parseClaimsJws(jwtToken)
+        with(claims.body) {
+            user_name == 'clay'
+            client_id == 'integration-client'
+            scope == ["read", "write"]
         }
     }
 
-    def "400 bad request if bad credentials from member request"() {
-        given:
-        integrationClient = trustClient([
-            clientId  : "integration-client", clientSecret: "#dev#clay",
-            grantTypes: ["password", "refresh_token"], scopes: ["read", "write"]])
-
-        when:
-        def response = requestToken([
-            auth  : [clientId: "integration-client", clientSecret: "#dev#clay"],
-            params: [grant_type: "password", scope: "read write", username: "clay",
-                     password  : "BAD_PASSWORD"
-            ]
-        ])
-
-        then:
-        response.statusCode == HttpStatus.BAD_REQUEST
-    }
-
-    def "401 unauthorized request if no match trust client"() {
-        given:
-        integrationClient = trustClient([
-            clientId  : "integration-client", clientSecret: "#dev#clay",
-            grantTypes: ["password", "refresh_token"], scopes: ["read", "write"]])
-
-        when:
-        def response = requestToken([
-            auth  : [clientId: "integration-client", clientSecret: "BAD_SECRET"],
-            params: [grant_type: "password", scope: "read write", username: "clay", password: "123123123"]
-        ])
-
-        then:
-        response.statusCode == HttpStatus.UNAUTHORIZED
-    }
 
     ResponseEntity<AuthToken> requestToken(Map props) {
         Map<String, String> auth = props.auth ?: [:]

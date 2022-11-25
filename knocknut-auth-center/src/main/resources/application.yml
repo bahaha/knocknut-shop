@@ -8,5 +8,10 @@ spring:
 server.port: 0
 
 knocknut:
+  auth:
+    jwt:
+      enabled: true
+      algo: hashing
+      secret: clay@knocknut
   data-access:
     mysql: jpa
