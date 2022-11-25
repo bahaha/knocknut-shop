@@ -147,6 +147,11 @@
         <version>${jjwt.version}</version>
       </dependency>
       <dependency>
+        <artifactId>mapstruct</artifactId>
+        <groupId>org.mapstruct</groupId>
+        <version>${mapstruct.version}</version>
+      </dependency>
+      <dependency>
         <artifactId>commons-pool2</artifactId>
         <groupId>org.apache.commons</groupId>
         <version>${commons-pool2.version}</version>
