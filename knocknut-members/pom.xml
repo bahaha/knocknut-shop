@@ -7,29 +7,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <annotationProcessorPaths>
-            <path>
-              <artifactId>mapstruct-processor</artifactId>
-              <groupId>org.mapstruct</groupId>
-              <version>${mapstruct.version}</version>
-            </path>
-            <path>
-              <artifactId>lombok</artifactId>
-              <groupId>org.projectlombok</groupId>
-              <version>${lombok.version}</version>
-            </path>
-            <path>
-              <artifactId>lombok-mapstruct-binding</artifactId>
-              <groupId>org.projectlombok</groupId>
-              <version>${lombok-mapstruct-binding.version}</version>
-            </path>
-          </annotationProcessorPaths>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
-        </configuration>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.10.1</version>
       </plugin>
     </plugins>
   </build>
@@ -62,11 +40,6 @@
       <artifactId>mapstruct</artifactId>
       <groupId>org.mapstruct</groupId>
       <version>${mapstruct.version}</version>
-    </dependency>
-    <dependency>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <groupId>org.springframework.boot</groupId>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <artifactId>guava</artifactId>
