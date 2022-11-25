@@ -11,7 +11,8 @@ knocknut:
   auth:
     jwt:
       enabled: true
-      algo: hashing
+      algo: rsa
       secret: clay@knocknut
+      rsa-private-key-pem: jwtAuth.key
   data-access:
     mysql: jpa

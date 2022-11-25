@@ -1,5 +1,6 @@
 package dev.claycheng.authcenter
 
+import com.google.common.io.Resources
 import dev.claycheng.api.AuthToken
 import dev.claycheng.api.CommonResult
 import dev.claycheng.api.enums.MemberStatus
@@ -7,8 +8,12 @@ import dev.claycheng.knocknut.api.feign.user.Member
 import dev.claycheng.knocknut.api.feign.user.MemberFeignApi
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
+import io.jsonwebtoken.JwtParser
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.security.Keys
+import lombok.Cleanup
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo
+import org.bouncycastle.openssl.PEMParser
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -29,25 +34,22 @@ import spock.lang.Specification
 
 import javax.sql.DataSource
 import java.nio.charset.StandardCharsets
+import java.security.PublicKey
 import java.time.Duration
 
 @TestPropertySource(properties = "knocknut.auth.jwt.enabled=true")
-@TestPropertySource(properties = "knocknut.auth.jwt.algo=hashing")
-@TestPropertySource(properties = "knocknut.auth.jwt.secret=clay@knocknut_VSVn5YJXx3jwWCpVHRtXgZnQ997n")
+@TestPropertySource(properties = "knocknut.auth.jwt.algo=rsa")
+@TestPropertySource(properties = "knocknut.auth.jwt.rsa-private-key-pem=jwtAuth.key")
 @TestConfiguration
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class JwtTokenOAuth2Spec extends Specification {
+class RsaJwtTokenOAuth2Spec extends Specification {
 
 
     @Autowired
     TestRestTemplate testRestTemplate
 
     BaseClientDetails integrationClient
-
-    def jwtParser = Jwts.parserBuilder()
-        .setSigningKey(Keys.hmacShaKeyFor("clay@knocknut_VSVn5YJXx3jwWCpVHRtXgZnQ997n".getBytes(StandardCharsets.UTF_8)))
-        .build()
 
     @SpringBean
     DataSource dataSource = Mock()
@@ -88,14 +90,30 @@ class JwtTokenOAuth2Spec extends Specification {
         response.statusCode == HttpStatus.OK
         AuthToken authToken = response.body
         String jwtToken = authToken.access_token
-        Jws<Claims> claims = jwtParser.parseClaimsJws(jwtToken)
+        Jws<Claims> claims = rsaJwsParser().parseClaimsJws(jwtToken)
         with(claims.body) {
             user_name == 'clay'
             client_id == 'integration-client'
-            scope == ["read", "write"]
         }
+
+        and: "algo should be rsa"
+        claims.header.get('alg') == 'RS256'
     }
 
+    JwtParser rsaJwsParser() {
+        Jwts.parserBuilder()
+            .setSigningKey(readRsaPublicKey(Resources.getResource("jwtAuth.key.pub")))
+            .build()
+    }
+
+    PublicKey readRsaPublicKey(URL resource) throws IOException {
+        @Cleanup
+        def keyReader =
+            Resources.asCharSource(resource, StandardCharsets.US_ASCII).openBufferedStream()
+        def pemParser = new PEMParser(keyReader)
+        def pemObject = pemParser.readObject()
+        return new JcaPEMKeyConverter().getPublicKey((SubjectPublicKeyInfo) pemObject)
+    }
 
     ResponseEntity<AuthToken> requestToken(Map props) {
         Map<String, String> auth = props.auth ?: [:]
