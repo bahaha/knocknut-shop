@@ -1,4 +1,4 @@
-package dev.claycheng.knocknut.members;
+package dev.claycheng;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
