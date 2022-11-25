@@ -1,5 +1,3 @@
-spring.flyway:
-  enabled: false
 server.port: 55688
 
 spring.datasource:

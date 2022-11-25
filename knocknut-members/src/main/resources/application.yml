@@ -1,6 +1,11 @@
 spring:
   application.name: knocknut-member
   profiles.active: dev
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+
+server.port: 0
 
 knocknut:
   data-access:
