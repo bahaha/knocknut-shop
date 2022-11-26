@@ -2,6 +2,7 @@ package dev.claycheng.knocknut.config;
 
 import com.google.common.collect.Lists;
 import com.google.common.io.Resources;
+import dev.claycheng.knocknut.domain.AuthUserTokenEnhancer;
 import dev.claycheng.knocknut.props.JwtProps;
 import java.io.IOException;
 import java.net.URL;
@@ -84,7 +85,8 @@ public class JwtTokenStoreConfig {
   @Bean
   public TokenEnhancerChain enhancerChain(JwtAccessTokenConverter tokenConverter) {
     TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-    tokenEnhancerChain.setTokenEnhancers(Lists.newArrayList(tokenConverter));
+    tokenEnhancerChain.setTokenEnhancers(
+        Lists.newArrayList(new AuthUserTokenEnhancer(), tokenConverter));
     return tokenEnhancerChain;
   }
 }
