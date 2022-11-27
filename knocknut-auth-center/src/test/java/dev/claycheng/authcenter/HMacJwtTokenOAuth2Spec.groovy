@@ -49,6 +49,8 @@ class HMacJwtTokenOAuth2Spec extends Specification {
         .setSigningKey(Keys.hmacShaKeyFor("clay@knocknut_VSVn5YJXx3jwWCpVHRtXgZnQ997n".getBytes(StandardCharsets.UTF_8)))
         .build()
 
+    def ccAvatar = 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortCurly&accessoriesType=Blank&hairColor=BrownDark&facialHairType=BeardMajestic&facialHairColor=BrownDark&clotheType=BlazerSweater&eyeType=Surprised&eyebrowType=RaisedExcited&mouthType=Serious&skinColor=Brown'
+
     @SpringBean
     DataSource dataSource = Mock()
 
@@ -59,9 +61,15 @@ class HMacJwtTokenOAuth2Spec extends Specification {
     MemberFeignApi memberApi = Stub(MemberFeignApi) {
         findByUsername(_) >> {
             def member = new Member()
+            member.id = 5566L
             member.username = 'clay'
+            member.nickname = 'cc'
             member.password = '123123123'
             member.status = MemberStatus.ENABLED
+            member.email = 'clementcheng56@gmail.com'
+            member.phone = '886912345678'
+            member.status = MemberStatus.ENABLED
+            member.avatar = ccAvatar
             CommonResult.success(member)
         }
     }
@@ -94,6 +102,15 @@ class HMacJwtTokenOAuth2Spec extends Specification {
             client_id == 'integration-client'
             scope == ["read", "write"]
         }
+
+        and: "contains user profile for other services usage"
+        def userProfile = claims.body.additionalInfo as Map<String, Object>
+        userProfile.get("memberId") == 5566L
+        userProfile.get("username") == 'clay'
+        userProfile.get("nickname") == 'cc'
+        userProfile.get("email") == 'clementcheng56@gmail.com'
+        userProfile.get("status") == MemberStatus.ENABLED.name()
+        userProfile.get("avatar") == ccAvatar
     }
 
 

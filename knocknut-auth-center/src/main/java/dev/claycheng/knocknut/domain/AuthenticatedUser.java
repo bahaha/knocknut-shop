@@ -1,9 +1,11 @@
 package dev.claycheng.knocknut.domain;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import dev.claycheng.api.enums.MemberStatus;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Map;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,17 @@ public class AuthenticatedUser implements UserDetails {
   private MemberStatus status;
   private String avatar;
   private LocalDate birthday;
+
+  public Map<String, Object> getUserProfile() {
+    return ImmutableMap.<String, Object>builder()
+        .put("memberId", getId())
+        .put("username", getUsername())
+        .put("nickname", getNickname())
+        .put("email", getEmail())
+        .put("status", getStatus())
+        .put("avatar", getAvatar())
+        .build();
+  }
 
   @Override
   public boolean isEnabled() {
