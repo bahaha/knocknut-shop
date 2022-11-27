@@ -35,6 +35,11 @@
     </dependency>
 
     <dependency>
+      <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+      <groupId>com.alibaba.cloud</groupId>
+    </dependency>
+
+    <dependency>
       <artifactId>spring-cloud-starter-oauth2</artifactId>
       <groupId>org.springframework.cloud</groupId>
     </dependency>

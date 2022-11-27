@@ -29,6 +29,11 @@
     </dependency>
 
     <dependency>
+      <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+      <groupId>com.alibaba.cloud</groupId>
+    </dependency>
+
+    <dependency>
       <artifactId>knocknut-commons</artifactId>
       <groupId>dev.claycheng</groupId>
     </dependency>

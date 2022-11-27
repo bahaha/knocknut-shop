@@ -1,28 +1,27 @@
-CREATE DATABASE `nacos`;
+CREATE DATABASE IF NOT EXISTS `nacos`;
 USE `nacos`;
 /******************************************/
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = config_info   */
 /******************************************/
-CREATE TABLE `config_info`
+CREATE TABLE IF NOT EXISTS `config_info`
 (
-    `id`                 bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `data_id`            varchar(255) NOT NULL COMMENT 'data_id',
-    `group_id`           varchar(255)          DEFAULT NULL,
-    `content`            longtext     NOT NULL COMMENT 'content',
-    `md5`                varchar(32)           DEFAULT NULL COMMENT 'md5',
-    `gmt_create`         datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '新增時間',
-    `gmt_modified`       datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '修改時間',
-    `src_user`           text COMMENT 'source user',
-    `src_ip`             varchar(20)           DEFAULT NULL COMMENT 'source ip',
-    `app_name`           varchar(128)          DEFAULT NULL,
-    `tenant_id`          varchar(128)          DEFAULT '' COMMENT '服務應用ID',
-    `c_desc`             varchar(256)          DEFAULT NULL,
-    `c_use`              varchar(64)           DEFAULT NULL,
-    `effect`             varchar(64)           DEFAULT NULL,
-    `type`               varchar(64)           DEFAULT NULL,
-    `c_schema`           text,
-    `encrypted_data_key` text         NOT NULL COMMENT '秘鑰',
+    `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
+    `group_id`     varchar(255)          DEFAULT NULL,
+    `content`      longtext     NOT NULL COMMENT 'content',
+    `md5`          varchar(32)           DEFAULT NULL COMMENT 'md5',
+    `gmt_create`   datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '新增時間',
+    `gmt_modified` datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '修改時間',
+    `src_user`     text COMMENT 'source user',
+    `src_ip`       varchar(20)           DEFAULT NULL COMMENT 'source ip',
+    `app_name`     varchar(128)          DEFAULT NULL,
+    `tenant_id`    varchar(128)          DEFAULT '' COMMENT '服務應用ID',
+    `c_desc`       varchar(256)          DEFAULT NULL,
+    `c_use`        varchar(64)           DEFAULT NULL,
+    `effect`       varchar(64)           DEFAULT NULL,
+    `type`         varchar(64)           DEFAULT NULL,
+    `c_schema`     text,
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_configinfo_datagrouptenant` (`data_id`, `group_id`, `tenant_id`)
 ) ENGINE = InnoDB
@@ -33,7 +32,7 @@ CREATE TABLE `config_info`
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = config_info_aggr   */
 /******************************************/
-CREATE TABLE `config_info_aggr`
+CREATE TABLE IF NOT EXISTS `config_info_aggr`
 (
     `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
@@ -54,21 +53,20 @@ CREATE TABLE `config_info_aggr`
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = config_info_beta   */
 /******************************************/
-CREATE TABLE `config_info_beta`
+CREATE TABLE IF NOT EXISTS `config_info_beta`
 (
-    `id`                 bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
-    `data_id`            varchar(255) NOT NULL COMMENT 'data_id',
-    `group_id`           varchar(128) NOT NULL COMMENT 'group_id',
-    `app_name`           varchar(128)          DEFAULT NULL COMMENT 'app_name',
-    `content`            longtext     NOT NULL COMMENT 'content',
-    `beta_ips`           varchar(1024)         DEFAULT NULL COMMENT 'betaIps',
-    `md5`                varchar(32)           DEFAULT NULL COMMENT 'md5',
-    `gmt_create`         datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '新增時間',
-    `gmt_modified`       datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '修改時間',
-    `src_user`           text COMMENT 'source user',
-    `src_ip`             varchar(20)           DEFAULT NULL COMMENT 'source ip',
-    `tenant_id`          varchar(128)          DEFAULT '' COMMENT '服務應用ID',
-    `encrypted_data_key` text         NOT NULL COMMENT '秘鑰',
+    `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
+    `group_id`     varchar(128) NOT NULL COMMENT 'group_id',
+    `app_name`     varchar(128)          DEFAULT NULL COMMENT 'app_name',
+    `content`      longtext     NOT NULL COMMENT 'content',
+    `beta_ips`     varchar(1024)         DEFAULT NULL COMMENT 'betaIps',
+    `md5`          varchar(32)           DEFAULT NULL COMMENT 'md5',
+    `gmt_create`   datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '新增時間',
+    `gmt_modified` datetime     NOT NULL DEFAULT '2010-05-05 00:00:00' COMMENT '修改時間',
+    `src_user`     text COMMENT 'source user',
+    `src_ip`       varchar(20)           DEFAULT NULL COMMENT 'source ip',
+    `tenant_id`    varchar(128)          DEFAULT '' COMMENT '服務應用ID',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_configinfobeta_datagrouptenant` (`data_id`, `group_id`, `tenant_id`)
 ) ENGINE = InnoDB
@@ -79,7 +77,7 @@ CREATE TABLE `config_info_beta`
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = config_info_tag   */
 /******************************************/
-CREATE TABLE `config_info_tag`
+CREATE TABLE IF NOT EXISTS `config_info_tag`
 (
     `id`           bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `data_id`      varchar(255) NOT NULL COMMENT 'data_id',
@@ -103,7 +101,7 @@ CREATE TABLE `config_info_tag`
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = config_tags_relation   */
 /******************************************/
-CREATE TABLE `config_tags_relation`
+CREATE TABLE IF NOT EXISTS `config_tags_relation`
 (
     `id`        bigint(20)   NOT NULL COMMENT 'id',
     `tag_name`  varchar(128) NOT NULL COMMENT 'tag_name',
@@ -123,7 +121,7 @@ CREATE TABLE `config_tags_relation`
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = group_capacity   */
 /******************************************/
-CREATE TABLE `group_capacity`
+CREATE TABLE IF NOT EXISTS `group_capacity`
 (
     `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主鍵ID',
     `group_id`          varchar(128)        NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整個集群',
@@ -145,22 +143,21 @@ CREATE TABLE `group_capacity`
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = his_config_info   */
 /******************************************/
-CREATE TABLE `his_config_info`
+CREATE TABLE IF NOT EXISTS `his_config_info`
 (
-    `id`                 bigint(64) unsigned NOT NULL,
-    `nid`                bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-    `data_id`            varchar(255)        NOT NULL,
-    `group_id`           varchar(128)        NOT NULL,
-    `app_name`           varchar(128)                 DEFAULT NULL COMMENT 'app_name',
-    `content`            longtext            NOT NULL,
-    `md5`                varchar(32)                  DEFAULT NULL,
-    `gmt_create`         datetime            NOT NULL DEFAULT '2010-05-05 00:00:00',
-    `gmt_modified`       datetime            NOT NULL DEFAULT '2010-05-05 00:00:00',
-    `src_user`           text,
-    `src_ip`             varchar(20)                  DEFAULT NULL,
-    `op_type`            char(10)                     DEFAULT NULL,
-    `tenant_id`          varchar(128)                 DEFAULT '' COMMENT '服務應用ID',
-    `encrypted_data_key` text                NOT NULL COMMENT '秘鑰',
+    `id`           bigint(64) unsigned NOT NULL,
+    `nid`          bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `data_id`      varchar(255)        NOT NULL,
+    `group_id`     varchar(128)        NOT NULL,
+    `app_name`     varchar(128)                 DEFAULT NULL COMMENT 'app_name',
+    `content`      longtext            NOT NULL,
+    `md5`          varchar(32)                  DEFAULT NULL,
+    `gmt_create`   datetime            NOT NULL DEFAULT '2010-05-05 00:00:00',
+    `gmt_modified` datetime            NOT NULL DEFAULT '2010-05-05 00:00:00',
+    `src_user`     text,
+    `src_ip`       varchar(20)                  DEFAULT NULL,
+    `op_type`      char(10)                     DEFAULT NULL,
+    `tenant_id`    varchar(128)                 DEFAULT '' COMMENT '服務應用ID',
     PRIMARY KEY (`nid`),
     KEY `idx_gmt_create` (`gmt_create`),
     KEY `idx_gmt_modified` (`gmt_modified`),
@@ -174,7 +171,7 @@ CREATE TABLE `his_config_info`
 /*   資料庫全名 = nacos_config   */
 /*   表名稱 = tenant_capacity   */
 /******************************************/
-CREATE TABLE `tenant_capacity`
+CREATE TABLE IF NOT EXISTS `tenant_capacity`
 (
     `id`                bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主鍵ID',
     `tenant_id`         varchar(128)        NOT NULL DEFAULT '' COMMENT 'Tenant ID',
@@ -193,7 +190,7 @@ CREATE TABLE `tenant_capacity`
   COLLATE = utf8_bin COMMENT ='服務應用容量信息表';
 
 
-CREATE TABLE `tenant_info`
+CREATE TABLE IF NOT EXISTS `tenant_info`
 (
     `id`            bigint(20)   NOT NULL AUTO_INCREMENT COMMENT 'id',
     `kp`            varchar(128) NOT NULL COMMENT 'kp',
@@ -210,21 +207,21 @@ CREATE TABLE `tenant_info`
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin COMMENT ='tenant_info';
 
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
     username varchar(50)  NOT NULL PRIMARY KEY,
     password varchar(500) NOT NULL,
     enabled  boolean      NOT NULL
 );
 
-CREATE TABLE roles
+CREATE TABLE IF NOT EXISTS roles
 (
     username varchar(50) NOT NULL,
     role     varchar(50) NOT NULL,
     constraint uk_username_role UNIQUE (username, role)
 );
 
-CREATE TABLE permissions
+CREATE TABLE IF NOT EXISTS permissions
 (
     role     varchar(50)  NOT NULL,
     resource varchar(512) NOT NULL,
