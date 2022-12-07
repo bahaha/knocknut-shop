@@ -198,6 +198,7 @@
     <module>knocknut-commons</module>
     <module>knocknut-database-migration</module>
     <module>knocknut-auth-center</module>
+    <module>knocknut-gateway</module>
   </modules>
 
   <packaging>pom</packaging>

@@ -1,0 +1,14 @@
+spring.cloud.gateway:
+  discovery:
+    locator:
+      lower-case-service-id: true
+      enabled: true
+  routes:
+    - id: auth-center
+      uri: lb://auth-center
+      predicates:
+        - Path=/oauth/**
+    - id: knocknut-member
+      uri: lb://knocknut-member
+      predicates:
+        - Path=/member/**
