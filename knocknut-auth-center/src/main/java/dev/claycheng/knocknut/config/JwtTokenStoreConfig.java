@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
@@ -108,7 +107,6 @@ public class JwtTokenStoreConfig {
    * @return the hashing-based token converter or the encryption-based converter
    */
   @Bean
-  @Primary
   public TokenStore jwtToken(JwtAccessTokenConverter accessTokenConverter) {
     return new JwtTokenStore(accessTokenConverter);
   }

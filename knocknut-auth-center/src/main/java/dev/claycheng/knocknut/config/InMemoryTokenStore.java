@@ -1,5 +1,6 @@
 package dev.claycheng.knocknut.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -10,7 +11,11 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
  *
  * @author Clay Cheng
  */
-@Configuration
+@ConditionalOnProperty(
+    prefix = "knocknut.auth.jwt",
+    name = "enabled",
+    havingValue = "false",
+    matchIfMissing = true)
 public class InMemoryTokenStore {
   @Bean
   public TokenStore inMemory() {
