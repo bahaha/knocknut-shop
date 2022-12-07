@@ -3,6 +3,7 @@ package dev.claycheng.knocknut.domain;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import dev.claycheng.api.enums.MemberStatus;
+import dev.claycheng.knocknut.api.feign.user.MemberFeignApi;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
@@ -10,6 +11,12 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * The authenticated user which most data comes from the member api ({@link MemberFeignApi}) focus
+ * on the authentication and authorization.
+ *
+ * @author Clay Cheng
+ */
 @Data
 public class AuthenticatedUser implements UserDetails {
   private Long id;
@@ -23,6 +30,13 @@ public class AuthenticatedUser implements UserDetails {
   private String avatar;
   private LocalDate birthday;
 
+  /**
+   * the jwt extra payload that resource server might need, like **memberId** to identify the
+   * current login member. If some required property missing from the profile, the resource could
+   * take the memberId from payload to ask the member service for more information.
+   *
+   * @return user profile that resource server might need
+   */
   public Map<String, Object> getUserProfile() {
     return ImmutableMap.<String, Object>builder()
         .put("memberId", getId())

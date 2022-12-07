@@ -18,8 +18,7 @@ public class JwtProps {
   private String rsaPublicKeyPem;
 
   public String getRsaPublicKeyPem() {
-    return Optional.ofNullable(rsaPublicKeyPem)
-        .orElse(getRsaPrivateKeyPem() + ".pub");
+    return Optional.ofNullable(rsaPublicKeyPem).orElse(getRsaPrivateKeyPem() + ".pub");
   }
 
   public URL getRsaPrivateKeyPemFromResource() {
