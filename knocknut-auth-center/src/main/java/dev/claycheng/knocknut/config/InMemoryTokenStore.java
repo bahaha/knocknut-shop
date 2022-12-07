@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
     matchIfMissing = true)
 @Configuration
 public class InMemoryTokenStore {
+
   @Bean
   public TokenStore inMemory() {
     return new org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore();

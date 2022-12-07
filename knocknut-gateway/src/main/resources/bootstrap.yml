@@ -1,0 +1,12 @@
+spring.cloud:
+  nacos:
+    config:
+      file-extension: yml
+      shared-configs:
+        - data-id: common-nacos.yml
+          group: DEFAULT_GROUP
+          refresh: true
+        - data-id: dynamic-datasource.yml
+          group: DEFAULT_GROUP
+          refresh: true
+
