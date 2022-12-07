@@ -2,8 +2,8 @@ package dev.claycheng.knocknut.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.stereotype.Component;
 
 /**
  * Register the InMemoryTokenStore from Spring as the token store, the default token store if no
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
     name = "enabled",
     havingValue = "false",
     matchIfMissing = true)
-@Component
+@Configuration
 public class InMemoryTokenStore {
 
   @Bean
