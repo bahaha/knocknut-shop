@@ -1,0 +1,9 @@
+knocknut:
+  auth:
+    jwt:
+      enabled: true
+      algo: rsa
+      secret: clay@knocknut_Y2xheUBrbm9ja251dA==WTJ4aGVVQnJibTlqYTI1MWRBPT0=
+      rsa-private-key-pem: jwtAuth.key
+      rsa-public-key-pem: jwtAuth.key.pub
+      token-type: bearer

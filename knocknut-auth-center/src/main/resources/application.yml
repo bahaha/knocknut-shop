@@ -12,7 +12,7 @@ knocknut:
     jwt:
       enabled: true
       algo: rsa
-      secret: clay@knocknut
+      secret: clay@knocknut_Y2xheUBrbm9ja251dA==WTJ4aGVVQnJibTlqYTI1MWRBPT0=
       rsa-private-key-pem: jwtAuth.key
   data-access:
     mysql: jpa

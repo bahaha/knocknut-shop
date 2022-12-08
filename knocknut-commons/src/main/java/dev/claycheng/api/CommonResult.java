@@ -1,14 +1,14 @@
 package dev.claycheng.api;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
+@AllArgsConstructor()
 @Data
-public class CommonResult<T> {
+public class CommonResult<T> implements ApiResult {
+
   private int code;
   private String message;
   private T data;
@@ -29,5 +29,10 @@ public class CommonResult<T> {
 
   public static <T> CommonResult<T> notFound(String message) {
     return new CommonResult<>(CommonApiResult.DATA_NOT_FOUND.getCode(), message, null);
+  }
+
+  public static <T> CommonResult<T> badConfiguration(String config) {
+    return new CommonResult<>(CommonApiResult.BAD_CONFIGURATION.getCode(),
+        "internal configuration error: " + config, null);
   }
 }

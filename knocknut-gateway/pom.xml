@@ -20,6 +20,17 @@
     </dependency>
 
     <dependency>
+      <artifactId>knocknut-commons</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>spring-web</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+      </exclusions>
+      <groupId>dev.claycheng</groupId>
+    </dependency>
+
+    <dependency>
       <artifactId>jjwt-api</artifactId>
       <groupId>io.jsonwebtoken</groupId>
     </dependency>
@@ -30,6 +41,18 @@
     <dependency>
       <artifactId>jjwt-jackson</artifactId>
       <groupId>io.jsonwebtoken</groupId>
+    </dependency>
+
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>spock-spring</artifactId>
+      <groupId>org.spockframework</groupId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

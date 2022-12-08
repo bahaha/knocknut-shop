@@ -6,3 +6,6 @@ spring.cloud:
         - data-id: dynamic-datasource.yml
           group: DEFAULT_GROUP
           refresh: true
+        - data-id: knocknut-security.yml
+          group: DEFAULT_GROUP
+          refresh: true

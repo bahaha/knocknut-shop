@@ -8,6 +8,10 @@
       <artifactId>spring-web</artifactId>
       <groupId>org.springframework</groupId>
     </dependency>
+    <dependency>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
 

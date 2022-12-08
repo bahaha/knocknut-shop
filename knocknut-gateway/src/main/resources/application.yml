@@ -3,15 +3,3 @@ spring:
   profiles.active: dev
 
 server.port: 55688
-
-knocknut:
-  auth:
-    jwt:
-      enabled: true
-      algo: rsa
-      secret: clay@knocknut
-      rsa-private-key-pem: jwtAuth.key
-  gateway:
-    public-urls:
-      - /oauth/**
-      - /sso/**
