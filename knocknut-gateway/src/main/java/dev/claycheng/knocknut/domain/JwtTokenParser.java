@@ -21,7 +21,7 @@ public class JwtTokenParser {
   private final JwtProps jwtProps;
 
   @Bean
-  public TokenParser jwtParser() {
+  public TokenParser rsaJwtTokenParser() {
     return header -> {
       var token = extractToken(header);
       var parser = jwtProps.getTokenParser();

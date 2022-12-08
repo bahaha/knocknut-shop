@@ -21,7 +21,7 @@ public class ApiRequest {
     return publicPathDecisionMaker.test(requestUri.getPath());
   }
 
-  public Optional<TokenEnhancement> getTokenEnahcement() {
+  public Optional<TokenEnhancement> getTokenEnhancement() {
     String authHeader = headers.getFirst("Authorization");
     if (Strings.isNullOrEmpty(authHeader)) {
       return Optional.empty();

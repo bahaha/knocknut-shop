@@ -42,6 +42,18 @@
       <artifactId>jjwt-jackson</artifactId>
       <groupId>io.jsonwebtoken</groupId>
     </dependency>
+
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <artifactId>spock-spring</artifactId>
+      <groupId>org.spockframework</groupId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <modelVersion>4.0.0</modelVersion>

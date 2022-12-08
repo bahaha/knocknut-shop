@@ -2,6 +2,7 @@ package dev.claycheng.knocknut.filter;
 
 import dev.claycheng.api.CommonApiResult;
 import dev.claycheng.knocknut.repository.factory.ApiRequestBuilder;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -31,19 +32,17 @@ public class AuthorizationFilter implements GlobalFilter, Ordered {
       return chain.filter(exchange);
     }
 
-    var tokenEnhancement = apiRequest.getTokenEnahcement()
-        .orElseThrow(CommonApiResult.EMPTY_AUTH_HEADER::toException);
+    try {
+      var tokenEnhancement = apiRequest.getTokenEnhancement()
+          .orElseThrow(CommonApiResult.EMPTY_AUTH_HEADER::toException);
 
-    var enhancedRequest = exchange.getRequest().mutate()
-        .header("memberId", tokenEnhancement.getMemberId())
-        .header("username", tokenEnhancement.getUsername())
-        .header("nickname", tokenEnhancement.getNickname())
-        .header("avatar", tokenEnhancement.getAvatar())
-        .header("email", tokenEnhancement.getEmail())
-        .header("status", tokenEnhancement.getStatus().getValue().toString())
-        .build();
-
-    var enhancedExchange = exchange.mutate().request(enhancedRequest).build();
-    return chain.filter(enhancedExchange);
+      var enhancedRequestBuilder = exchange.getRequest().mutate();
+      var enhancedExchange = exchange.mutate()
+          .request(tokenEnhancement.attachEnhancementToHeader(enhancedRequestBuilder).build())
+          .build();
+      return chain.filter(enhancedExchange);
+    } catch (JwtException ex) {
+      throw CommonApiResult.UNAUTHORIZED.toException();
+    }
   }
 }
