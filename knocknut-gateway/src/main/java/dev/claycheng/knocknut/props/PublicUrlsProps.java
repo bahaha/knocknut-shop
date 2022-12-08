@@ -10,7 +10,7 @@ import org.springframework.util.AntPathMatcher;
 
 @Data
 @ConfigurationProperties("knocknut.auth.gateway")
-public class PublicUrlsProperties {
+public class PublicUrlsProps {
 
   private LinkedHashSet<String> publicUrls;
 

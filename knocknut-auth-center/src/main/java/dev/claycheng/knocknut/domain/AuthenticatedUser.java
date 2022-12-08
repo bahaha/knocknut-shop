@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 @Data
 public class AuthenticatedUser implements UserDetails {
+
   private Long id;
   private Long memberLevelId;
   private String username;
@@ -43,7 +44,7 @@ public class AuthenticatedUser implements UserDetails {
         .put("username", getUsername())
         .put("nickname", getNickname())
         .put("email", getEmail())
-        .put("status", getStatus())
+        .put("status", getStatus().getValue())
         .put("avatar", getAvatar())
         .build();
   }

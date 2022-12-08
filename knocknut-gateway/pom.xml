@@ -20,6 +20,17 @@
     </dependency>
 
     <dependency>
+      <artifactId>knocknut-commons</artifactId>
+      <exclusions>
+        <exclusion>
+          <artifactId>spring-web</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+      </exclusions>
+      <groupId>dev.claycheng</groupId>
+    </dependency>
+
+    <dependency>
       <artifactId>jjwt-api</artifactId>
       <groupId>io.jsonwebtoken</groupId>
     </dependency>

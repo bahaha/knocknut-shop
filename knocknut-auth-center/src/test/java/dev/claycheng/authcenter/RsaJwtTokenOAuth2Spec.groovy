@@ -113,7 +113,7 @@ class RsaJwtTokenOAuth2Spec extends Specification {
         userProfile.get("username") == 'clay'
         userProfile.get("nickname") == 'cc'
         userProfile.get("email") == 'clementcheng56@gmail.com'
-        userProfile.get("status") == MemberStatus.ENABLED.name()
+        userProfile.get("status") == MemberStatus.ENABLED.value
         userProfile.get("avatar") == ccAvatar
     }
 
